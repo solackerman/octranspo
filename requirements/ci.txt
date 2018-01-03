@@ -1,5 +1,6 @@
 -r production.txt
 
 pytest==3.0.6
-pylint==1.6.5
+pylint
 mypy==0.471
+shopify_python

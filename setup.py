@@ -1,14 +1,14 @@
 from setuptools import setup
 
 setup(
-    name='python_template',
+    name='oc_transpo',
     version='0.1.0',
-    description='A Python template repo to save you some yak-shaving.',
+    description='Playing with OC Transpo APIs and Google Cloud',
     long_description='',
-    author='Jason White',
-    author_email='jason.white@shopify.com',
-    url='https://github.com/JasonMWhite/python_template',
-    packages=['python_template', 'pylint_custom'],
+    author='Sol Ackermamn',
+    author_email='sol.ackerman@gmail.com',
+    url='https://github.com/solackerman/octranspo',
+    packages=['octranspo'],
     include_package_data=True,
     install_requires=[
     ],
