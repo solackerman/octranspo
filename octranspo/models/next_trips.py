@@ -2,6 +2,7 @@ import datetime as dt
 from octranspo import bigquery as bq
 from octranspo import oc_api
 
+
 class NextTrips(bq.Table):
     dataset_id = 'octranspo'
     table_id = 'next_trips'
@@ -46,3 +47,10 @@ class NextTrips(bq.Table):
                 next_trips['StopNo'],
                 trip['TripDestination'],
                 dt.time(*map(int, trip['TripStartTime'].split(':'))))
+
+    def run(self, stops):
+        self.insert_rows(
+            [self.gen_row(stop_no, route_no)
+             for stop_no, route_no
+             in stops]
+        )
