@@ -1,4 +1,4 @@
-import datetime as dt
+# import datetime as dt
 import time
 import schedule
 from octranspo.models import next_trips as nt
@@ -9,6 +9,6 @@ if __name__ == '__main__':
         [(4808, 14)]
     )
 
-    while dt.datetime.now().hour < 16:
+    while True:
         schedule.run_pending()
         time.sleep(1)
