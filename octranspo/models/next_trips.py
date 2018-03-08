@@ -26,31 +26,50 @@ class NextTrips(bq.Table):
               'TripStartTime':         ['TIME', {'mode': 'REQUIRED'}]}
 
     @staticmethod
+    def to_time(t):
+        t_tup = list(map(int, t.split(':')))
+        t_tup[0] %= 24
+        dt.time(*t_tup)
+
+
+    @staticmethod
     def gen_row(stop_no, route_no):
         response = oc_api.next_trips_for_stop(stop_no, route_no)
         next_trips = response['GetNextTripsForStopResult']
         route = next_trips['Route']['RouteDirection']
-        trip = route['Trips']['Trip'][0]
 
-        return ((dt.datetime.min + dt.timedelta(minutes=float(trip['AdjustedScheduleTime']))).time(),
-                (dt.datetime.min + dt.timedelta(seconds=int(float(trip['AdjustmentAge']) * 60))).time(),
-                trip['BusType'],
-                route['Direction'],
-                float(trip['GPSSpeed']),
-                trip['LastTripOfSchedule'],
-                float(trip['Latitude']),
-                float(trip['Longitude']),
-                dt.datetime.strptime(route['RequestProcessingTime'], '%Y%m%d%H%M%S'),
-                route['RouteLabel'],
-                str(route['RouteNo']),
-                next_trips['StopLabel'],
-                next_trips['StopNo'],
-                trip['TripDestination'],
-                dt.time(*map(int, trip['TripStartTime'].split(':'))))
+
+        trips = route['Trips']
+        if not trips:
+            return
+
+        trip = trips['Trip']
+        if isinstance(trip, list):
+            trip = trip[0]
+
+        return (
+            (dt.datetime.min + dt.timedelta(minutes=float(trip['AdjustedScheduleTime']))).time(),
+            (dt.datetime.min + dt.timedelta(seconds=int(float(trip['AdjustmentAge']) * 60))).time(),
+            trip['BusType'],
+            route['Direction'],
+            float(trip['GPSSpeed']),
+            trip['LastTripOfSchedule'],
+            float(trip['Latitude']),
+            float(trip['Longitude']),
+            dt.datetime.strptime(route['RequestProcessingTime'], '%Y%m%d%H%M%S'),
+            route['RouteLabel'],
+            str(route['RouteNo']),
+            next_trips['StopLabel'],
+            next_trips['StopNo'],
+            trip['TripDestination'],
+            NextTrips.to_time(trip['TripStartTime'])
+        )
 
     def run(self, stops):
-        self.insert_rows(
-            [self.gen_row(stop_no, route_no)
-             for stop_no, route_no
-             in stops]
-        )
+        rows = []
+        for stop_no, route_no in stops:
+            row = self.gen_row(stop_no, route_no)
+            if row:
+                rows.append(row)
+
+        self.insert_rows(rows)

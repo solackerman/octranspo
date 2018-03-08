@@ -1,6 +1,7 @@
 from google.cloud import bigquery
 from google.cloud import exceptions
 
+
 class Table(object):
     dataset_id = None
     table_id = None
@@ -35,4 +36,5 @@ class Table(object):
         return client.create_table(table)
 
     def insert_rows(self, rows):
-        return self.client.create_rows(self.table, rows)
+        if rows:
+            return self.client.create_rows(self.table, rows)
