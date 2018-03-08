@@ -12,3 +12,4 @@ if __name__ == '__main__':
     while True:
         schedule.run_pending()
         time.sleep(1)
+# nt.NextTrips().run([(4808, 14)])

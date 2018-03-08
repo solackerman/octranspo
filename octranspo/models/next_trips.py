@@ -29,7 +29,7 @@ class NextTrips(bq.Table):
     def to_time(t):
         t_tup = list(map(int, t.split(':')))
         t_tup[0] %= 24
-        dt.time(*t_tup)
+        return dt.time(*t_tup)
 
 
     @staticmethod
@@ -47,9 +47,13 @@ class NextTrips(bq.Table):
         if isinstance(trip, list):
             trip = trip[0]
 
+        adjustment_age = dt.timedelta(seconds=int(float(trip['AdjustmentAge']) * 60))
+        if adjustment_age < dt.timedelta(0):
+            return
+
         return (
             (dt.datetime.min + dt.timedelta(minutes=float(trip['AdjustedScheduleTime']))).time(),
-            (dt.datetime.min + dt.timedelta(seconds=int(float(trip['AdjustmentAge']) * 60))).time(),
+            (dt.datetime.min + adjustment_age).time(),
             trip['BusType'],
             route['Direction'],
             float(trip['GPSSpeed']),
@@ -71,5 +75,5 @@ class NextTrips(bq.Table):
             row = self.gen_row(stop_no, route_no)
             if row:
                 rows.append(row)
-
+        import ipdb; ipdb.set_trace()
         self.insert_rows(rows)
