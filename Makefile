@@ -23,3 +23,6 @@ typing:
 
 build:
 	docker build -t octranspo .
+
+enter-container:
+	docker run -it --entrypoint=/bin/bash octranspo:latest
