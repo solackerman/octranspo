@@ -8,7 +8,8 @@ WORKDIR /app
 ADD . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install -r requirements/production.txt
+RUN pip install -r requirements/production.txt && \
+    mv .env_docker .env
 
 # Run app.py when the container launches
-CMD ["python", "octranspo/run.py"]
+CMD ["python", "run.py"]

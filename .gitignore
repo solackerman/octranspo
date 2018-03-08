@@ -77,6 +77,8 @@ celerybeat-schedule
 
 # dotenv
 .env
+.env_docker
+.env_local
 
 # virtualenv
 venv/
@@ -95,3 +97,4 @@ pyvenv.cfg
 .DS_Store
 pip-selfcheck.json
 share/
+.service_account_octranspo.json

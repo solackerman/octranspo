@@ -22,4 +22,4 @@ typing:
 	@mypy python_template pylint_custom tests --ignore-missing-imports
 
 build:
-	docker build -t octranspo git@github.com:solackerman/octranspo.git#master
+	docker build -t octranspo .

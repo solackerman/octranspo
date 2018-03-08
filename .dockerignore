@@ -1,0 +1,118 @@
+scala/target/
+*.py[cod]
+
+# ignore the decrypted secrets file
+**/secrets*.json
+
+# ignore bundler directories
+.bundle/
+vendor/bundle
+
+# Cache directory
+.cache/
+
+# C extensions
+*.so
+
+.git/
+*.md
+
+# Packages
+*.egg
+*.egg-info
+dist
+/build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+lib64
+@test*
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+.ropeproject
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+# Virtualenv
+.venv
+
+# vim swap files
+*.swp
+
+# osx custom attributes file
+.DS_Store
+
+# pip sometimes makes a src dir for some reason
+src/*
+
+# ignore Sublime project files
+*sublime-project
+*sublime-workspace
+
+*.orig
+
+# Generated files
+*.pdf
+
+# ignore working test files
+tests/work/*
+
+# ignore pycharm config files
+.idea
+
+# ignore tmp in the root
+tmp
+
+# Scala cruft
+scala/project/project/
+scala/sbt
+rdd_viz.png
+
+# CI Hadoop config
+hadoop/
+
+# Notebooks
+notebooks/workspace/*
+!notebooks/workspace/tutorials
+notebooks/migrated
+notebooks/runtime
+notebooks/.ipynb_checkpoints/*
+notebooks/workspace/tutorials/.ipynb_checkpoints/*
+notebooks/nbsignatures.db
+notebooks/notebook_secret
+.dev
+
+# IntelliJ projects
+*.iml
+
+# Maven / SBT
+target/
+
+# Visual Studio Code files
+.vscode/*
+
+# ensime code files/folders
+.ensime
+.ensime_cache
