@@ -26,3 +26,8 @@ build:
 
 enter-container:
 	docker run -it --entrypoint=/bin/bash octranspo:latest
+
+push: build
+	docker tag "octranspo:latest" "gcr.io/octranspo-190317/octranspo"
+	gcloud docker -- push gcr.io/octranspo-190317/octranspo
+	kubectl apply -f manifests/cronjob.yaml

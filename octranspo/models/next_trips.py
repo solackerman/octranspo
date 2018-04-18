@@ -75,5 +75,4 @@ class NextTrips(bq.Table):
             row = self.gen_row(stop_no, route_no)
             if row:
                 rows.append(row)
-        import ipdb; ipdb.set_trace()
         self.insert_rows(rows)
