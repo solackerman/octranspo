@@ -29,5 +29,5 @@ enter-container:
 
 push: build
 	docker tag "octranspo:latest" "gcr.io/octranspo-190317/octranspo"
-	gcloud docker -- push gcr.io/octranspo-190317/octranspo
-	kubectl apply -f manifests/cronjob.yaml
+	docker push gcr.io/octranspo-190317/octranspo
+	# kubectl apply -f manifests/cronjob.yaml
